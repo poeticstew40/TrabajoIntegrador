@@ -1,4 +1,4 @@
-package utn.tp.integrador.equipo7;
+package utn.tp.integrador;
 
 public class Equipo {
 

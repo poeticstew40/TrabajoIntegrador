@@ -1,4 +1,4 @@
-package utn.tp.integrador.equipo7;
+package utn.tp.integrador;
 
 public class Pronostico {
 
@@ -25,7 +25,7 @@ public class Pronostico {
     }
 
     public int puntos(){
-        //TODO incompleto
+        //TODO terminar la implementacion
         String resultadoReal = partido.resultado(equipo);
         if (resultado.equals(resultadoReal)){
             return 1;

@@ -1,4 +1,4 @@
-package utn.tp.integrador.equipo7;
+package utn.tp.integrador;
 
 public class Partido {
 
@@ -53,5 +53,6 @@ public class Partido {
             }
         }
         return "Ambos equipos empataron";
+        //TODO Revisar la implementacion
     }
 }
