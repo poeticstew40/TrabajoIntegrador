@@ -45,14 +45,22 @@ public class Partido {
     }
 
     public String resultado(Equipo equipo){
-        if (equipo.equals(equipo1)){
-            if (golesEquipo1>golesEquipo2){
-                return "El " + equipo1.getNombre() + "Gano";
-            }else if (golesEquipo1<golesEquipo2){
-                return "El " + equipo2.getNombre() + "Gano";
+        if (golesEquipo1 == golesEquipo2){
+            return "empate";
+        }
+        if (equipo.getNombre().equals(equipo1.getNombre())) {
+            if (golesEquipo1 > golesEquipo2) {
+                return "ganador";
+            } else {
+                return "perdedor";
+            }
+        }else {
+            if (golesEquipo2>golesEquipo1) {
+                return "ganador";
+            }   else {
+                return "perdedor";
             }
         }
-        return "Ambos equipos empataron";
         //TODO Revisar la implementacion
     }
 }

@@ -4,18 +4,23 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
         // leer resultados
-        Path pathResultados = Paths.get("src/main/java/archivosCSV/resultados.csv");
+        Collection<Partido> partidos = new ArrayList<Partido>();
+
+        Path pathResultados = Paths.get(args[0]);
         List<String> lineasResultados = null;
         try {
             lineasResultados = Files.readAllLines(pathResultados);
         } catch (IOException e) {
             System.out.println("No se puede leer la linea de resultados");
+            System.out.println(e.getMessage());
             System.exit(1);
         }
         boolean primera = true;
@@ -23,16 +28,64 @@ public class Main {
             if (primera){
                 primera = false;
             }else {
-                System.out.println(lineaResultados);
+                String[] campos = lineaResultados.split(",");
+                Equipo equipo1 = new Equipo(campos[0]);
+                Equipo equipo2 = new Equipo(campos[3]);
+                Partido partido = new Partido(equipo1,equipo2);
+                partido.setGolesEquipo1(Integer.parseInt(campos[1]));
+                partido.setGolesEquipo2(Integer.parseInt(campos[2]));
+                partidos.add(partido);
             }
-
         }
 
         // leer pronosticos
+        int puntos = 0;
+        Path pathPronostico = Paths.get(args[1]);
+        List<String> lineasPronostico = null;
+        try {
+            lineasPronostico = Files.readAllLines(pathPronostico);
+        } catch (IOException e) {
+            System.out.println("No se puede leer la linea de pronosticos");
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
+        primera = true;
+        for (String lineaPronostico: lineasPronostico) {
+            if (primera) {
+                primera = false;
+            } else {
+                String[] campos = lineaPronostico.split(",");
+                Equipo equipo1 = new Equipo(campos[0]);
+                Equipo equipo2 = new Equipo(campos[4]);
+                Partido partido = null;
 
-        // calcular y mostrar puntos
-
-
-
+                for(Partido partidoCol: partidos){
+                    if (partidoCol.getEquipo1().getNombre().equals(equipo1.getNombre())
+                            && partidoCol.getEquipo2().getNombre().equals(equipo2.getNombre())){
+                        partido = partidoCol;
+                    }
+                }
+                Equipo equipo = null;
+                String resultado = null;
+                if ("X".equals(campos[1])){
+                    equipo = equipo1;
+                    resultado = "ganador";
+                }
+                if ("X".equals(campos[2])){
+                    equipo = equipo1;
+                    resultado = "empate";
+                }
+                if ("X".equals(campos[3])){
+                    equipo = equipo2;
+                    resultado = "ganador";
+                }
+                Pronostico pronostico = new Pronostico(partido, equipo, resultado);
+                // sumar puntos
+                puntos += pronostico.puntos();
+            }
+        }
+        //mostrar puntos
+        System.out.println("Los puntos obtenidos por el usuario fueron:");
+        System.out.println(puntos);
     }
 }

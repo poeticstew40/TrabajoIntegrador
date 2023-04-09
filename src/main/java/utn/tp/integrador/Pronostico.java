@@ -32,5 +32,4 @@ public class Pronostico {
         }else
             return 0;
     }
-
 }
