@@ -25,7 +25,6 @@ public class Pronostico {
     }
 
     public int puntos(){
-        //TODO terminar la implementacion
         String resultadoReal = partido.resultado(equipo);
         if (resultado.equals(resultadoReal)){
             return 1;
