@@ -2,33 +2,25 @@ package utn.tp.integrador;
 
 public class Pronostico {
 
-    private Partido partido;
-    private Equipo equipo;
-    private String resultado;
+    private int id;
+    private String nombre;
+    private EnumResultado resultado;
 
-    public Pronostico(Partido partido, Equipo equipo, String resultado) {
-        this.partido = partido;
-        this.equipo = equipo;
+    public Pronostico(int id, String nombre, EnumResultado resultado) {
+        this.id = id;
+        this.nombre = nombre;
         this.resultado = resultado;
     }
 
-    public Partido getPartido() {
-        return partido;
+    public int getId() {
+        return id;
     }
 
-    public Equipo getEquipo() {
-        return equipo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getResultado() {
+    public EnumResultado getResultado() {
         return resultado;
-    }
-
-    public int puntos(){
-        String resultadoReal = partido.resultado(equipo);
-        if (resultado.equals(resultadoReal)){
-            return 1;
-        }else
-            return 0;
     }
 }
